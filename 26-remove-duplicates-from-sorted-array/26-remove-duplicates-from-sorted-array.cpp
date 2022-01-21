@@ -6,14 +6,11 @@ public:
             return NULL;
             
         int change= 0,pass=1;
-        while(pass<n){
-            if(nums[change]==nums[pass])
-                pass++;
-            else
-            {
+
+        for(pass;pass<n;pass++){
+            if(nums[change]!=nums[pass]){
                 change++;
                 nums[change]=nums[pass];
-                pass++;
             }
         }
         return change+1;
