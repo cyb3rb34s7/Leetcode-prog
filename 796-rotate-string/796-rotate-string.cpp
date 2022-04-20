@@ -3,9 +3,13 @@ public:
     bool rotateString(string s, string goal) {
         if(s.size()!=goal.size())
             return false;
-        string temp = s+s ; 
-        
-        return (temp.find(goal)!=string::npos); 
+      for(int i =0 ;i<s.size() ; i++){
+          reverse(s.begin(),s.end()-1);
+          reverse(s.begin(),s.end()); 
+          if(s==goal)
+              return true;
+      }
+        return false;
         
     }
 };
