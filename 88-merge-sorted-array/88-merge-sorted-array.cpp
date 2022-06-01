@@ -14,12 +14,6 @@ public:
                 nums1[high--]=nums2[mid--];
             }
         }
-        if(mid<0)
-        {
-            while(high>=0){
-                nums1[high--]=nums1[low--];
-            }
-        }
         
     }
 };
