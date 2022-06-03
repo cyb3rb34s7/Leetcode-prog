@@ -1,17 +1,44 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
+        int n=nums.size(), x,y, cx=0,cy=0;
         
-        unordered_map<int,int> mp ; 
-        vector<int> res;
-        for(auto x:nums){
-            mp[x]++;
+        for(auto p:nums){
+            if(p==x)
+                cx++;
+            else if(p==y)
+                cy++;
+            else if(cx==0)
+            {x=p;
+             cx=1;
+            }
+            else if(cy==0)
+            {
+                y=p;
+                cy=1;
+            }
             
+            else
+            {
+                cx--; 
+                cy--;
+            }
+          cout<<x<<" "<<y<<endl;
         }
-        for( auto it=mp.begin();it!=mp.end();it++){
-            if(it->second>nums.size()/3)
-                res.push_back(it->first);
+        vector<int> ans;
+        cx=cy=0;
+        for(auto p:nums){
+            if(p==x)
+                cx++;
+            if(p==y)
+                cy++;
         }
-        return res;
+        if(cx>n/3) ans.push_back(x);
+        if(cy>n/3) ans.push_back(y);
+        
+        return ans;
+        
+        
+        
     }
 };
