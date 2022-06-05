@@ -12,20 +12,13 @@ public:
     }
     bool isPalindrome(ListNode* head) {
         int cnt=0;
-        ListNode *curr=head;
-        while(curr!=NULL)
-        {
-            curr=curr->next ; 
-            cnt++; 
-        }
-        int mid= cnt%2==0 ? cnt/2 -1 : (cnt+1)/2 -1;
-        curr=head;
-        while(mid--){
-            curr=curr->next;
-        }
+        ListNode *curr=head, *fast=head;
+        while(fast->next!=NULL and fast->next->next!=NULL)
+            curr=curr->next ,fast=fast->next->next;
         
         curr->next = reverseList(curr->next);
         curr=curr->next;
+        //comparing ll;
         while(curr!=NULL){
             if(head->val==curr->val)
             {
