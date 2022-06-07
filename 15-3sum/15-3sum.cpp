@@ -1,11 +1,19 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        sort(nums.begin(),nums.end()) ;
+        
+        if(nums.size()<3)
+            return {}; 
+        if(nums[0]>0)
+            return {};
+        
         vector<vector<int>> res;
         set<vector<int>> st ; 
-        sort(nums.begin(),nums.end()) ;
+        
         for(int i=0;i<nums.size();i++)
-        {
+        {   
             int l = i+1 ,h=nums.size() -1 ; 
             int target = -1*nums[i];
             while(l<h){
