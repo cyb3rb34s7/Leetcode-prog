@@ -12,10 +12,9 @@ class Solution
     vector<vector<int>> meetings  ;
     
     for(int i =0;i<n;i++){
-        vector<int> block(3) ;
+        vector<int> block(2) ;
         block[0]=end[i] ;
-        block[1]=i+1;
-        block[2] = start[i];
+        block[1]=start[i];
         meetings.push_back(block) ;
     }
     sort(meetings.begin(),meetings.end()) ;
@@ -23,7 +22,7 @@ class Solution
     int count =1 ; 
     int endt = meetings[0][0] ; 
     for(int i=1;i<n;i++){
-        if(meetings[i][2]>endt){
+        if(meetings[i][1]>endt){
             count++;
             endt=meetings[i][0];
         }
