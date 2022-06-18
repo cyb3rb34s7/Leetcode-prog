@@ -1,40 +1,23 @@
 class Solution {
 public:
-    bool isSafe(int row,int col, vector<string> &board){
-        int dupRow =row, dupCol=col;
-        
-        //checcking left col
-        while(col>=0){
-            if(board[row][col]=='Q') return false;
-            col--;
-        }
-        col=dupCol; 
-        //checking for lower diagonal 
-        
-        while(col>=0 and row<board.size()){
-            if(board[row][col]=='Q') return false;
-            col--; row++ ; 
-        }
-       
-        col = dupCol ; row= dupRow ;
-        //checking for upper diagonal  
-        while(col>=0 and row>=0){
-            if(board[row][col]=='Q') return false;
-            col--; row-- ; 
-        }
-        return true; 
-    }
-    
-    void solve(int col,vector<vector<string>> &res, vector<string> &board, int n){
+    void solve(int col,vector<vector<string>> &res, vector<string> &board, vector<int> &leftcheck, vector<int> &uppercheck, vector<int> &lowercheck ){
+        int n =board.size();
         if(col==n){
             res.push_back(board);
             return;
         }
-        for(int row=0;row<n;row++){
-            if(isSafe(row,col,board)){
-                board[row][col]='Q';     //
-                solve(col+1,res,board,n);  //calling recursion
-                board[row][col]= '.';  //baccktrck
+        
+        for(int row=0; row<board.size();row++){
+            if(leftcheck[row]==0 && uppercheck[n-1+col-row]==0 && lowercheck[col+row]==0){
+                board[row][col]='Q' ; 
+                leftcheck[row]=1 ; 
+                uppercheck[n-1+col-row]=1;  
+                lowercheck[col+row]=1;
+                solve(col+1,res,board,leftcheck,uppercheck,lowercheck);
+                board[row][col]='.' ; 
+                leftcheck[row]=0 ; 
+                uppercheck[n-1+col-row]=0;  
+                lowercheck[col+row]=0;
             }
         }
     }
@@ -43,12 +26,12 @@ public:
         vector<vector<string>> res ; 
         vector<string> board(n) ; 
         string s(n,'.') ; 
+        for(int i =0;i<n;i++)
+            board[i]=s;
         
-        for(int i =0;i<n;i++){
-            board[i] =s; 
-        }
+        vector<int> leftcheck(n,0), uppercheck(2*n-1,0),lowercheck(2*n-1,0) ;
+        solve(0,res,board,leftcheck,uppercheck,lowercheck);
         
-        solve(0,res,board,n);
         return res;
     }
 };
