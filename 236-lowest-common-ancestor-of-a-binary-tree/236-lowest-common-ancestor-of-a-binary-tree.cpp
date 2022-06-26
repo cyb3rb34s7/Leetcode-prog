@@ -9,30 +9,18 @@
  */
 class Solution {
 public:
-    bool search(TreeNode* root, vector<TreeNode*>&ds, TreeNode* p){
-        if(root==NULL)
-            return false;
-        ds.push_back(root);
-        if(root==p)
-            return true;
-        
-        if(search(root->left,ds,p) or search(root->right,ds,p))
-            return true;
-        ds.pop_back() ; 
-        return false;
-    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> ds1 ,ds2 ; 
-        search(root,ds1,p);
-        search(root,ds2,q) ;
-        TreeNode* res  ; 
-        int n1= ds1.size() , n2=ds2.size() ; 
-        for(int i=0,j=0 ; i<n1 and j<n2 ; i++,j++ ){
-            if(ds1[i]==ds2[j])
-                res = ds1[i];
-        }
-        return res;
+        if(root==NULL or root==p or root==q)
+            return root;
         
+        TreeNode* left = lowestCommonAncestor(root->left,p,q);
+        TreeNode* right = lowestCommonAncestor(root->right,p,q);
         
+        if(left==NULL)
+            return right ;
+        else if(right==NULL)
+            return left;
+        else
+            return root;
     }
 };
