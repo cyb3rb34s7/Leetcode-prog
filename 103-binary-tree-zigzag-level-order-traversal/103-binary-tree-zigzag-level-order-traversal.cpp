@@ -10,19 +10,19 @@ public:
         while(!q.empty()){
             int cnt = q.size() ; 
             
-            vector<int> temp ; 
+            vector<int> temp(cnt) ; 
             for(int i=0;i<cnt;i++){
                 TreeNode* curr = q.front(); 
                 q.pop(); 
-                
+                int ind = (trigger) ? cnt-1-i : i ;
             
-                 temp.push_back(curr->val) ;
+                 temp[ind] = curr->val ; 
                 
                 if(curr->left) q.push(curr->left) ;
                 if(curr->right) q.push(curr->right) ; 
                     
             }
-            if(trigger) reverse(temp.begin(),temp.end()) ;
+            
             res.push_back(temp) ;
             trigger = !trigger ; 
         }
