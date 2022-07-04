@@ -13,7 +13,7 @@ public:
     bool check(int ind, int target, vector<int> &arr, vector<vector<int>>&dp){
         if(target==0) 
                 return true; 
-        if(ind==0 and target!=arr[0]) 
+        if(ind<0 and target!=0) 
             return false;
         
         if(dp[ind][target]!=-1)
