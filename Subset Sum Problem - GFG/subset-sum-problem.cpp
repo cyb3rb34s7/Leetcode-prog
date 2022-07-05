@@ -13,23 +13,22 @@ public:
          int N=arr.size() ;
         vector<vector<bool>>dp(N+1,vector<bool>(sum+1,false)) ;
         
-        for(int j=0; j<sum+1 ;j++)
-            dp[0][j]=false;
-        
         for(int i=0; i<N+1 ;i++)
             dp[i][0] = true ;
+        
+        dp[0][arr[0]] =true ; 
             
         for(int i=1 ;i<N+1 ; i++){
             for(int j=1 ; j < sum+1 ; j++){
-                if(arr[i-1]<=j)
-                    dp[i][j] = dp[i-1][j-arr[i-1]] or dp[i-1][j] ; 
+                if(arr[i]<=j)
+                    dp[i][j] = dp[i-1][j-arr[i]] or dp[i-1][j] ; 
                 else
                 dp[i][j]  = dp[i-1][j] ;
             }
         }
         
         
-       return dp[N][sum] ;
+       return dp[N-1][sum] ;
     }
 };
 
