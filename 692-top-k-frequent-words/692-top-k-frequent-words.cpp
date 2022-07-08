@@ -1,15 +1,12 @@
 
 class Solution {
-    struct compare{
-        public:
-            bool operator()(pair<int,string> &p1 , pair<int,string> &p2) {
+static bool compare(pair<int,string> &p1 , pair<int,string> &p2) {
         if(p1.first==p2.first)
                 return p1.second>p2.second ;
             
 
                 return p1.first<p2.first;
     }
-    };
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
         
@@ -18,19 +15,20 @@ public:
         for(auto x:words)
             mp[x]++ ; 
         
-        priority_queue<pair<int,string>, vector<pair<int,string>>,compare>pq;
+        vector<pair<int,string>> pq; 
         
-        for(auto it:mp){
-            pq.push({it.second,it.first});
-        }
-        vector<string> ans ; 
-        while(k--)
+        for(auto it:mp)
         {
-            string s = pq.top().second ; 
-           
-            pq.pop() ; 
-            ans.push_back(s) ;
+            pq.push_back({it.second,it.first});
         }
-        return ans ; 
+        sort(pq.begin(),pq.end(),compare) ; 
+        vector<string> ans;
+        int i=pq.size()-1 ; 
+        while(k--){
+            ans.push_back(pq[i].second) ; 
+            i-- ;
+        }
+        return ans; 
+        
     }
 };
