@@ -27,7 +27,7 @@ public:
         while(k--)
         {
             string s = pq.top().second ; 
-            cout<<s<<endl;
+           
             pq.pop() ; 
             ans.push_back(s) ;
         }
