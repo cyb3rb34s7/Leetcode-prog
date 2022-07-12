@@ -1,17 +1,20 @@
 class Solution {
 public:
-    bool func(int ind, int side1,int side2,int side3,int side4,vector<int> &nums){
+    bool func(int ind,vector<int>&side,vector<int> &nums){
         if(ind<0)
-            return side1==0 and side2==0 and side3==0 and side4==0 ;
+            return side[0]==0 and side[1]==0 and side[2]==0 and side[3]==0 ;
         
-        if(side1<0 or side2<0 or side3<0 or side4<0)
-            return false;
+        for(int i=0 ;i<4;i++){
+            if(side[i]<nums[ind])
+                continue ;
+            
+            side[i]-=nums[ind] ; 
+            if(func(ind-1,side,nums)) return true;
+            side[i]+=nums[ind] ; 
+        }
+        return false; 
         
-        return func(ind-1,side1-nums[ind] ,side2,side3,side4,nums) or
-                func(ind-1,side1 ,side2-nums[ind],side3,side4,nums) or
-                func(ind-1,side1 ,side2,side3-nums[ind],side4,nums) or
-                func(ind-1,side1 ,side2,side3,side4-nums[ind],nums) ;
-                
+                       
     }
     bool makesquare(vector<int>& nums) {
         int n =nums.size(); 
@@ -20,9 +23,11 @@ public:
         
         if(sum % 4 != 0)
             return false;
-        int side = sum/4 ; 
+        
+         vector<int>side(4,sum/4) ; 
+        
         sort(nums.begin(),nums.end()) ; 
         
-        return func(n-1,side,side,side,side,nums) ; 
+        return func(n-1,side,nums) ; 
     }
 };
