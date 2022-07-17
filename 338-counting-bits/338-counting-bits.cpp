@@ -1,18 +1,26 @@
 class Solution {
 public:
-    vector<int> countBits(int n) {
-        vector<int> res; 
-        
-        for(int i = 0 ; i <= n ; i++){
-            int sum = 0 ; 
-            int num= i ; 
-            while(num!=0){
-                
-                sum+= num%2 ; 
-                num/=2 ; 
-            }
-            res.push_back(sum) ; 
+    int solve(int n , vector<int> &dp){
+        if(n==0)
+            return 0;
+        if(n==1)
+            return 1;
+        if(dp[n]!=-1)
+            return dp[n] ; 
+        if( n % 2 == 0)
+            return dp[n] = solve(n/2,dp) ; 
+        else{
+            return dp[n] = solve(n/2,dp) + 1 ;
         }
-        return res ; 
+    }
+    
+    vector<int> countBits(int n) {
+        vector<int> res(n+1) ; 
+        
+        vector<int> dp(n+1,-1) ;
+        for(int i=0;i<=n;i++){
+            res[i] = solve(i,dp) ; 
+        }
+        return res; 
     }
 };
