@@ -25,9 +25,9 @@ public:
        
         ListNode* newHead = leftPart->next , *curr = newHead,*prev=NULL, *nextt;
         
-        int diff =  right-left +1  ; 
+
         
-        while(diff--){
+        for(int i=0;i<right-left+1;i++){
             nextt = curr->next ; 
             curr->next = prev ; 
             prev = curr ; 
