@@ -18,10 +18,9 @@ public:
         dummy->next = head ; 
         ListNode *leftPart = dummy ;
         
-        int cnt =1 ; 
-        while(cnt<left){
+        for(int i=1;i<left;i++){
             leftPart=leftPart->next ; 
-            cnt++ ; 
+            
         }
        
         ListNode* newHead = leftPart->next , *curr = newHead,*prev=NULL, *nextt;
