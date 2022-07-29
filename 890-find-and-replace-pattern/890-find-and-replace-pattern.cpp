@@ -5,21 +5,9 @@ public:
         
         char cnt = 'a' ; 
         
-        string temp,temp1 ; 
+        string temp1 ; 
         
-        for(int i =0;i<s.size();i++){
-            if(mp1.find(s[i])==mp1.end()){
-                mp1[s[i]] = cnt ; 
-                temp+=cnt ; 
-                cnt = char(cnt+1) ;
-               
-            }
-            
-            else
-                temp+=to_string(mp1[s[i]]); 
-             
-            
-        }
+        
        
         cnt='a' ; 
          for(int i =0;i<b.size();i++){
@@ -35,14 +23,30 @@ public:
             
         }
        
-        return temp1==temp ;
+        return temp1==s ;
         
     }
-    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+    vector<string> findAndReplacePattern(vector<string>& words, string s) {
        int n = words.size(); 
         vector<string> res ; 
+        unordered_map<char,char> mp1 ; 
+        char cnt = 'a' ;
+        string temp ; 
+        for(int i =0;i<s.size();i++){
+            if(mp1.find(s[i])==mp1.end()){
+                mp1[s[i]] = cnt ; 
+                temp+=cnt ; 
+                cnt = char(cnt+1) ;
+               
+            }
+            
+            else
+                temp+=to_string(mp1[s[i]]); 
+             
+            
+        }
         for(int i=0;i<n;i++){
-            if(func(pattern,words[i]))
+            if(func(temp,words[i]))
                 res.push_back(words[i]) ;
         }
         return res ;
