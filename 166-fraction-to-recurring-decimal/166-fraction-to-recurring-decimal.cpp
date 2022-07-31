@@ -4,16 +4,15 @@ class Solution
         string fractionToDecimal(int a, int b)
         {
             if (a == 0) return "0";
-            if (b == 0) return "";
+            
             string ans = "";
-            if ((a > 0 and b < 0) or(a < 0 and b > 0))
-                ans += "-";
+            ans+= ((a>0)^(b>0)) ? "-" : "" ;
 
-            long long int n = abs(a);
-            long long int d = abs(b);
+            long long n = abs(a);
+            long long d = abs(b);
 
-            long long int x = n / d;
-            long long int rem = n % d;
+            long long  x = n / d;
+            long long rem = n % d;
 
             ans += to_string(x);
             if (rem == 0) return ans;
