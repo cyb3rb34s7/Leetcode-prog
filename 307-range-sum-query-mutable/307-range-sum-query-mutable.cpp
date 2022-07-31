@@ -1,30 +1,33 @@
 class NumArray {
 public:
-    vector<int>v; //vector to store input vector.
-    int sum; //sum of all element of vector 
+    vector<int> t ;
+    
+    int sum ; 
     NumArray(vector<int>& nums) {
-        v=nums;
-        sum=0;
-        for(int i=0;i<nums.size();i++){
-            sum+=nums[i];
-        }
+        t = nums ;
+        sum = accumulate(t.begin(),t.end(),0) ;
     }
     
     void update(int index, int val) {
-        sum-=v[index];     //subtract old element  from sum at index and then update by adding new element val.
-        v[index]=val;
-        sum+=val;
-        
+        sum-=t[index] ;
+        t[index] = val; 
+        sum+=t[index] ;
     }
     
     int sumRange(int left, int right) {
-        int res=sum; 
-        for(int i=0;i<left;i++){    //subtract all element before left and after right
-            res-=v[i];
+        int ans = sum ; 
+        
+        for(int i=0;i<left;i++)
+            ans-=t[i] ;
+        for(int i=right+1;i<t.size();i++)
+            ans-=t[i] ;
+        return ans ;
         }
-        for(int i=right+1;i<v.size();i++){
-            res-=v[i];
-        }
-        return res;// return res ie. our answer.
-    }
 };
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * obj->update(index,val);
+ * int param_2 = obj->sumRange(left,right);
+ */
