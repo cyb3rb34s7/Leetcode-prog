@@ -23,7 +23,7 @@ public:
     }
     
     ListNode* getMid(ListNode* head){
-        if(!head or !head->next) return head ;
+        if(head==NULL or head->next==NULL) return head ;
         
         ListNode* slow=head ,*fast=head;
         
