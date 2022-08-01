@@ -11,22 +11,53 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        vector<int> res; 
+        if(!head or !head->next)
+            return head ;
         
-        ListNode* curr = head ; 
+        ListNode *mid = getMid(head) ;
+       
+        ListNode *left = sortList(head) ;
+        ListNode *right = sortList(mid) ;
         
-        while(curr){
-            res.push_back(curr->val) ; 
+        return merge(left,right) ; 
+    }
+    
+    ListNode* getMid(ListNode* head){
+        if(!head or !head->next) return head ;
+        
+        ListNode* slow=head ,*fast=head;
+        
+        while(fast->next!=NULL and fast->next->next!=NULL){
+            slow=slow->next ;
+            fast =fast->next->next ;
+        }
+        
+        ListNode *temp = slow->next ;
+        slow->next=NULL ;
+        return temp ; 
+
+    }
+    
+    ListNode* merge(ListNode* a, ListNode *b){
+        ListNode* dummy = new ListNode(0) ;
+        ListNode* curr =dummy ;
+        
+        while(a!=NULL and b!=NULL){
+            
+            if(a->val < b->val){
+                curr->next = a ;
+                a=a->next;
+            }
+            else
+            {
+                curr->next = b ;
+                b = b->next ;
+            }
             curr=curr->next ;
         }
-        sort(res.begin(),res.end()) ;
-        int i=0;
-        curr=head ;
-        while(curr){
-            curr->val = res[i] ;
-            curr=curr->next ;
-            i++; 
-        }
-        return head ;
+        if(a==NULL) curr->next = b ;
+        else curr->next = a ;
+        
+        return dummy->next ;
     }
 };
