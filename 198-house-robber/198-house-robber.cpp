@@ -1,20 +1,20 @@
 class Solution {
 public:
-    int dp[1001] ; 
-    int func(int ind, vector<int> &nums){
-        
-        if(ind==0) return nums[ind] ;
-        if(ind<0) return 0 ;
-        if(dp[ind]!=-1)
-            return dp[ind] ;
-        int pick = nums[ind] + func(ind-2,nums) ; 
-        int notPick = 0 + func(ind-1,nums) ;
-        
-        return dp[ind] = max(pick,notPick) ;
-    }
     int rob(vector<int>& nums) {
+        int n  = nums.size();
         
-        memset(dp,-1,sizeof(dp)) ;
-        return func(nums.size()-1,nums) ;   
+        vector<int> dp(n+1,0) ; 
+        
+        
+        dp[0] = 0 ; 
+        dp[1] = nums[0] ; 
+        
+        for(int i = 2 ; i<n+1 ;i++){
+            int pick = nums[i-1] + dp[i-2] ;
+            int notPick = 0 + dp[i-1] ;
+            
+            dp[i] = max(pick,notPick) ;
+        }
+        return dp[n] ;
     }
 };
