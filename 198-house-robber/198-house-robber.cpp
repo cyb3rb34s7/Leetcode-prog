@@ -3,7 +3,7 @@ public:
     int rob(vector<int>& nums) {
         int n  = nums.size();
         
-        vector<int> dp(n+1,0) ; 
+        vector<int> dp(102,0) ; 
         
         
         dp[0] = 0 ; 
