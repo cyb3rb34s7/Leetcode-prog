@@ -1,11 +1,13 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int profit=0,min_now=INT_MAX;
+     int minTillNow = INT_MAX ;
+        int ans = 0 ; 
         for(auto x:prices){
-            min_now = min(min_now,x);
-            profit=max(x-min_now,profit); 
+            
+            minTillNow = min(minTillNow,x) ;
+            ans = max(ans, x-minTillNow) ;
         }
-        return profit;
+        return ans ;
     }
 };
