@@ -2,11 +2,6 @@ class Solution {
 public:
     vector<vector<int>> generate(int n) {
         vector<vector<int>> res ; 
-        
-        int dp[n][n]; 
-        memset(dp,0,sizeof(dp)) ;
-        
-        dp[0][0] = 1 ;
         res.push_back({1}) ;
         for(int i=1;i<n;i++){
             vector<int> temp(i+1) ;
