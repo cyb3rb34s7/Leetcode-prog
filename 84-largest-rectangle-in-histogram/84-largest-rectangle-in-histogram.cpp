@@ -13,13 +13,13 @@ public:
             
             if(st.empty())
             {
-                nsr[i] = n ; 
+                nsr[i] = n-1 ; 
                 st.push(i) ;
                 i--;
             }
             else if(heights[st.top()] < heights[i])
             {
-                nsr[i] = st.top() ;
+                nsr[i] = st.top() - 1 ;
                 st.push(i) ;
                 i--;
             }
@@ -35,13 +35,13 @@ public:
             
             if(st2.empty())
             {
-                nsl[i] = -1 ; 
+                nsl[i] = 0 ; 
                 st2.push(i) ;
                 i++;
             }
             else if(heights[st2.top()] < heights[i])
             {
-                nsl[i] = st2.top() ;
+                nsl[i] = st2.top() + 1 ;
                 st2.push(i) ;
                 i++;
             }
@@ -53,7 +53,7 @@ public:
         int ans = INT_MIN ;
         for(int i=0;i<n;i++){
              
-            int area = (((nsr[i]-1) - (nsl[i]+1)) + 1 ) * heights[i] ; 
+            int area = ((nsr[i] - nsl[i]) + 1 ) * heights[i] ; 
             ans = max(ans,area) ;
         }
         return ans ;
