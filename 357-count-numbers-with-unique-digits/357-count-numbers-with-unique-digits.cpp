@@ -4,7 +4,7 @@ public:
         if(n==0)
             return 1 ;
         
-        int ans = 10  ; //base case for 1 digit ;
+        int ans = 10  ;
         int curr=9;
         int start = 9 ;
         
