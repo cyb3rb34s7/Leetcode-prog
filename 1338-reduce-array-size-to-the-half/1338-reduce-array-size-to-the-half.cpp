@@ -7,16 +7,16 @@ public:
             mp[x]++ ; 
         }
         
-        priority_queue<pair<int,int>> pq ;
+        priority_queue<int> pq ;
         
         for(auto it:mp){
-            pq.push({it.second,it.first}) ;
+            pq.push(it.second) ;
         }
        int cnt =0 ;
         int n = 0 ;
         
         while(n<arr.size()/2){
-            n+=pq.top().first ;
+            n+=pq.top();
             cnt++ ;
             pq.pop();
             
