@@ -1,45 +1,36 @@
 class Solution {
 public:
-    bool vis[6001][2];
-    int dp[6001][2] ;
-    int go(int idx,bool state,int a,int b,int x,unordered_set<int> &st){
-        
-        if(idx==x)
-            return 0 ;
-        if(idx<0 or idx>6000 or st.find(idx)!=st.end())
-            return 1e9 ;
-        if(dp[idx][state]!=-1)
-            return dp[idx][state] ;
-
-        if (vis[idx][state] != 0) {
-            // cout<<idx<<" "<<state<<endl;
+    unordered_map<int,int> mp;
+    int dp[6001][2];
+    
+    
+    int helper(int i, bool back , int a ,int b, int x) {
+        if(i == x)
+            return 0;
+        if(i<0 || i>6000 || mp.find(i)!=mp.end())
             return 1e9;
-        }
-        else {
-            vis[idx][state] = 1;
-        }
-
+        if(dp[i][back] != -1) 
+            return dp[i][back];
         
-        int ans =1e9;//INT_MAX ;
-        if(idx-b >=0 and st.find(idx-b)==st.end() and state==false)
-            ans = min(ans,go(idx-b,true,a,b,x,st)+1) ;
+        dp[i][back] = 1+helper(i+a,0,a,b,x); //go forward
         
-        if(st.find(idx+a)==st.end())
+        if(!back) //cannot go consecutively backwards more than 1
         {
-            ans = min(ans,min(go(idx+a,false,a,b,x,st)+1,go(idx+a,true,a,b,x,st)+1)) ;
+        dp[i][back] = min(dp[i][back] , helper(i-b,1,a,b,x)+1);  
+        
         }
-        
-        return dp[idx][state] = ans ;
+        return dp[i][back];
     }
-    int minimumJumps(vector<int>& vec, int a, int b, int x) {
-        memset(vis,0, sizeof(vis));
-        memset(dp,-1,sizeof(dp)) ;
-        unordered_set<int> st(vec.begin(),vec.end()) ;
-                 
-        int ans = go(0,false,a,b,x,st) ;
-        
-        ans = (ans>=1e9) ? -1 :ans ;
-        
-        return ans ;
+    
+
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+        for(int i=0;i<forbidden.size();i++){
+            mp[forbidden[i]] = 1;
+        }
+        memset(dp,-1,sizeof(dp));
+        int ans = helper(0,0,a,b,x);
+        if(ans>1e9) 
+               return -1;
+        return ans;               
     }
 };
