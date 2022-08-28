@@ -3,49 +3,34 @@ public:
     vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
         int m = mat.size() ;
         int n = mat[0].size() ;
-        int i =0 ;
         
-        while(i<m){
-            int x = i,j=0 ;
-            priority_queue<int,vector<int>,greater<int>> pq ;
+        for(int i=0;i<m;i++){
             
-            while(x<m and j<n){
-                
+            priority_queue<int,vector<int>,greater<int>> pq ;
+            for(int j=0,x=i;j<n && x<m ;x++,j++){
                 pq.push(mat[x][j]) ;
-                x++ ; j++ ;
             }
             
-             x=i; j=0;
-             while(x<m and j<n and !pq.empty()){
-                mat[x][j] = pq.top() ; 
-                
-                x++ ; j++ ;
-                 pq.pop();
-            }
-            i++ ;
-            
-        }
-        int j = 1 ;
-        while(j<n){
-            
-            int y = j,i=0 ;
-            priority_queue<int,vector<int>,greater<int>> pq ;
-            while(y<n and i<m){
-                
-                pq.push(mat[i][y]);
-                
-                i++ ; y++ ;
-            }
-            y = j ,i=0 ;
-             while(y<n and i<m){
-                mat[i][y] = pq.top();
+            for(int j=0,x=i;j<n && x<m ;x++,j++){
+                mat[x][j] = pq.top() ;
                 pq.pop() ;
-                 i++ ; y++ ;
             }
-            j++ ;
             
         }
         
+        for(int j=1;j<n;j++){
+            
+            priority_queue<int,vector<int>,greater<int>> pq ;
+            for(int y = j,i=0;y<n && i<m ;y++,i++){
+                pq.push(mat[i][y]) ;
+            }
+            
+            for(int y = j,i=0;y<n && i<m ;y++,i++){
+                mat[i][y] = pq.top() ;
+                pq.pop() ;
+            }
+            
+        }
        
     return mat;
     }
