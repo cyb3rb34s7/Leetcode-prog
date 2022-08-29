@@ -20,9 +20,10 @@ public:
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(grid[i][j]=='1')
-                    {cnt++;
+                    { dfs(grid,i,j) ;
+                    cnt++;
                      
-                     dfs(grid,i,j) ;
+                    
                     }
                 else continue ;
                 
