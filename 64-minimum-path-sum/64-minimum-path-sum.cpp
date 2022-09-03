@@ -6,7 +6,7 @@ public:
         if(i==m-1 and j==n-1)
             return grid[m-1][n-1] ; 
         
-        if(i<0 or j<0 or j>=n or i>=m){
+        if(j>=n or i>=m){
             return 10004 ;
         }
         if(dp[i][j]!=-1)
