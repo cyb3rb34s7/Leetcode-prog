@@ -23,9 +23,9 @@ public:
         
     }
     int shipWithinDays(vector<int>& arr, int d) {
-        int l = *max_element(arr.begin(),arr.end()) ; 
+        int l = 1 ;
         
-        int r = accumulate(arr.begin(),arr.end(),0) ; 
+        int r = 25000005 ;  
         int ans  ; 
         while(l<=r){
             
