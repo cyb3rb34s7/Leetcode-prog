@@ -3,29 +3,26 @@ public:
     
     bool isPossible(int cap, vector<int>&arr, int d){
         
-        int i = 0 ; 
-        int temp = cap ; 
-        while(d!=0 and i<arr.size()){
-            
-            if(cap-arr[i]>=0)
-               { cap-=arr[i] ;
-                i++ ; 
-               }
-            else
-            {
-                d-- ; 
-                cap = temp ; 
+       int cnt = 1 , sum = 0 ;
+        
+        for(int i=0;i<arr.size();i++){
+            sum+=arr[i] ; 
+            if(sum>cap)
+            {   cnt++; 
+                sum = arr[i] ;
             }
-            
-            
+             if(cnt>d)
+            return  false;
         }
-        return i==arr.size() ; 
+        
+       
+        return true ;
         
     }
     int shipWithinDays(vector<int>& arr, int d) {
-        int l = 1 ;
+        int l = *max_element(arr.begin(),arr.end()) ;
         
-        int r = 25000005 ;  
+        int r  = accumulate(arr.begin(),arr.end(),0) ;  
         int ans  ; 
         while(l<=r){
             
