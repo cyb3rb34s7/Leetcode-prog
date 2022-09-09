@@ -1,6 +1,5 @@
 class Solution {
 public:
-     //handling the edge case while sorting
      static bool comp(vector<int> &a, vector<int> &b)
      {
           if (a[0] == b[0])
@@ -9,19 +8,27 @@ public:
           }
           return a[0] < b[0];
      }
-     int numberOfWeakCharacters(vector<vector<int>> &properties)
-     {
-          sort(properties.begin(), properties.end(), comp); //sorting the array
-          int mtn = INT_MIN;                                //max till now while moving from right
-          int ans = 0;
-
-          for (int i = properties.size() - 1; i >= 0; i--)
-          {
-               if (properties[i][1] < mtn) // if the second parameter is also less increase the ans
-                    ans++;
-               mtn = max(mtn, properties[i][1]);
-          }
-          return ans;
-     }
-
+    int numberOfWeakCharacters(vector<vector<int>>& p) {
+        int n= p.size() ;
+        
+        sort(p.begin(),p.end(),comp) ;
+        
+        int cnt = 0 ;
+        pair<int,int> last = {p[n-1][0],p[n-1][1]}  ;
+        for(int i=n-2;i>=0;i--){
+            if(p[i][0] == last.first)
+                {if(p[i][1]>last.second)
+                    last = {p[i][0],p[i][1]}  ;
+                
+                 else
+                     continue;
+                }
+            
+            if(p[i][0]<last.first and p[i][1]<last.second)
+                cnt++ ; 
+            if(p[i][0]<last.first and p[i][1] > last.second)
+                last = {p[i][0],p[i][1]} ; 
+        }
+        return cnt ; 
+    }
 };
